@@ -23,6 +23,41 @@ const getRandomNum = function () {
   rolled = Math.round(Math.random() * 5) + 1;
 };
 
+const getDiceOne = function (
+  currentScore,
+  holdScore,
+  holdScoreNum,
+  playerOne,
+  playerTwo
+) {
+  diceImg.setAttribute('src', 'dice-1.png');
+  holdScore.textContent = holdScoreNum;
+  if (player === 1) {
+    currentScoreOne = 0;
+    currentScore.textContent = currentScoreOne;
+  } else if (player === 2) {
+    currentScoreTwo = 0;
+    currentScore.textContent = currentScoreTwo;
+  }
+  player === 1 ? (player = 2) : (player = 1);
+  playerOne.classList.remove('player--active');
+  playerTwo.classList.add('player--active');
+};
+
+const getDiceImg = function () {
+  if (rolled === 2) {
+    diceImg.setAttribute('src', 'dice-2.png');
+  } else if (rolled === 3) {
+    diceImg.setAttribute('src', 'dice-3.png');
+  } else if (rolled === 4) {
+    diceImg.setAttribute('src', 'dice-4.png');
+  } else if (rolled === 5) {
+    diceImg.setAttribute('src', 'dice-5.png');
+  } else if (rolled === 6) {
+    diceImg.setAttribute('src', 'dice-6.png');
+  }
+};
+
 rollDiceBtn.addEventListener('click', () => {
   holdTurned = true;
   if (
@@ -30,54 +65,21 @@ rollDiceBtn.addEventListener('click', () => {
     player2.classList.contains('player--winner')
   )
     return;
-
   getRandomNum();
-
   if (player === 1) {
     currentScoreOne += rolled;
     currentScore1.textContent = currentScoreOne;
-
     if (rolled === 1 || rolled === 0) {
-      diceImg.setAttribute('src', 'dice-1.png');
-      holdScore1.textContent = holdScoreOne;
-      currentScoreOne = 0;
-      currentScore1.textContent = currentScoreOne;
-      player = 2;
-      player1.classList.remove('player--active');
-      player2.classList.add('player--active');
-    } else if (rolled === 2) {
-      diceImg.setAttribute('src', 'dice-2.png');
-    } else if (rolled === 3) {
-      diceImg.setAttribute('src', 'dice-3.png');
-    } else if (rolled === 4) {
-      diceImg.setAttribute('src', 'dice-4.png');
-    } else if (rolled === 5) {
-      diceImg.setAttribute('src', 'dice-5.png');
-    } else if (rolled === 6) {
-      diceImg.setAttribute('src', 'dice-6.png');
+      getDiceOne(currentScore1, holdScore1, holdScoreOne, player1, player2);
     }
+    getDiceImg();
   } else if (player === 2) {
     currentScoreTwo += rolled;
     currentScore2.textContent = currentScoreTwo;
     if (rolled === 1 || rolled === 0) {
-      diceImg.setAttribute('src', 'dice-1.png');
-      holdScore2.textContent = holdScoreTwo;
-      currentScoreTwo = 0;
-      currentScore2.textContent = currentScoreTwo;
-      player = 1;
-      player1.classList.add('player--active');
-      player2.classList.remove('player--active');
-    } else if (rolled === 2) {
-      diceImg.setAttribute('src', 'dice-2.png');
-    } else if (rolled === 3) {
-      diceImg.setAttribute('src', 'dice-3.png');
-    } else if (rolled === 4) {
-      diceImg.setAttribute('src', 'dice-4.png');
-    } else if (rolled === 5) {
-      diceImg.setAttribute('src', 'dice-5.png');
-    } else if (rolled === 6) {
-      diceImg.setAttribute('src', 'dice-6.png');
+      getDiceOne(currentScore2, holdScore2, holdScoreTwo, player2, player1);
     }
+    getDiceImg();
   }
 });
 
